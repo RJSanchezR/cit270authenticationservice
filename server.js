@@ -5,6 +5,7 @@ const app = express(); // Using the library
 const md5 = require('md5'); // Importing the library
 const bodyParser = require('body-parser'); // Middleware
 const {createClient} = require('redis');
+const { request } = require('express');
 const redisClient = createClient(
 {
     socket:{
@@ -13,11 +14,11 @@ const redisClient = createClient(
     }
 }
 ); // This creates a connection to the redis database
-redisClient.connect();
 
 app.use(bodyParser.json()); // Using the middleware (call it before anything else happens on each request)
 
-app.listen(port, ()=>{
+app.listen(port, async ()=>{
+    await redisClient.connect();
     console.log("Listening on port: "+port);
 })
 
@@ -38,8 +39,16 @@ const validatePassword = async (request, response)=>{
     }
 }
 
+const signup = async (request, response)=>{
+    const newHashedPassword = md5(request.body.password);
+    await redisClient.hSet('credentials', request.body.userName, newHashedPassword);
+    response.send("Ok");
+}
+
 app.get('/',(request,response)=>{ // Every time something calls your API that is a request
     response.send("Hello"); // A response is when the API gives the information requested
 })
 
 app.post('/login',validatePassword);
+
+app.post('/signup',signup)
