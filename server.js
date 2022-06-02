@@ -1,11 +1,11 @@
 const express = require('express'); //Importing the library
-
+const https = require('https');
 const port = 3000;
 const app = express(); // Using the library
+const fs = require('fs');
 const md5 = require('md5'); // Importing the library
 const bodyParser = require('body-parser'); // Middleware
 const {createClient} = require('redis');
-const { request } = require('express');
 const redisClient = createClient(
 {
     socket:{
@@ -17,10 +17,14 @@ const redisClient = createClient(
 
 app.use(bodyParser.json()); // Using the middleware (call it before anything else happens on each request)
 
-app.listen(port, async ()=>{
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert'),
+}, app.listen(port, async ()=>{
     await redisClient.connect();
     console.log("Listening on port: "+port);
-})
+}));
+
 
 const validatePassword = async (request, response)=>{
     //await redisClient.connect(); // Creating a TCP socket with Redis
@@ -40,9 +44,12 @@ const validatePassword = async (request, response)=>{
 }
 
 const signup = async (request, response)=>{
-    const newHashedPassword = md5(request.body.password);
+    const plainTextPassword = request.body.password; // No need to request it in plain text but it shows story
+    const newHashedPassword = md5(plainTextPassword);
     await redisClient.hSet('credentials', request.body.userName, newHashedPassword);
-    response.send("Ok");
+    response.status(200);
+    response.send({result:"Saved"});
+    console.log("Request Body",JSON.stringify(request.body));
 }
 
 app.get('/',(request,response)=>{ // Every time something calls your API that is a request
