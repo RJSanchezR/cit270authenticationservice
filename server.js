@@ -1,6 +1,6 @@
 const express = require('express'); //Importing the library
 const https = require('https');
-const port = 6379;
+const port = 4043;
 const app = express(); // Using the library
 const fs = require('fs');
 const md5 = require('md5'); // Importing the library
@@ -8,7 +8,7 @@ const bodyParser = require('body-parser'); // Middleware
 const {createClient} = require('redis');
 const redisClient = createClient(
 {
-    url: 'redis://default:@10.128.0.2:6379',
+    url: 'redis://default:@10.128.0.2:4043',
 }
 ); // This creates a connection to the redis database
 
