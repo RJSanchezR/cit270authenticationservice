@@ -12,6 +12,8 @@ const redisClient = createClient(
 }
 ); // This creates a connection to the redis database
 
+redisClient.connect();
+
 app.use(bodyParser.json()); // Using the middleware (call it before anything else happens on each request)
 
 https.createServer({
