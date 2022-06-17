@@ -8,7 +8,7 @@ const bodyParser = require('body-parser'); // Middleware
 const {createClient} = require('redis');
 const redisClient = createClient(
 {
-    url: 'redis://default:@10.128.0.2:4043',
+    url: 'redis://default:@10.128.0.2:6379',
 }
 ); // This creates a connection to the redis database
 
