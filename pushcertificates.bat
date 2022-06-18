@@ -1,0 +1,1 @@
+scp server.cert server.key yabor@34.123.22.223:/home/yabor/cit270authenticationservice
