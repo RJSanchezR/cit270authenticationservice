@@ -57,7 +57,7 @@ const signup = async (request, response)=>{
 }
 
 app.get('/',(request,response)=>{ // Every time something calls your API that is a request
-    response.send("Hello"); // A response is when the API gives the information requested
+    response.send("What's up hommie?"); // A response is when the API gives the information requested
 })
 
 app.post('/login',validatePassword);
