@@ -1,1 +1,1 @@
-curl --insecure -d "@signup.json" -X POST -H "Content-Type:application/json" http://localhost:3000/signup
+curl --insecure -d "@signup.json" -H "Content-Type:application/json" -X POST https://rodrigo-nodejs.cit270.com/signup
