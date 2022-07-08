@@ -16,7 +16,7 @@ spec:
       labels:
         app: rodrigo-cit270
     spec:
-      container:
+      containers:
         - name: rodrigo-cit270
         # This is the Dockerhub url to my image
           image: yabork/cit270
