@@ -11,46 +11,46 @@ spec:
   selector:
     matchLabels:
       app: rodrigo-cit270
-    template:
-      metadata:
-        labels:
-          app: rodrigo-cit270
-      spec:
-        container:
-          - name: rodrigo-cit270
-          # This is the Dockerhub url to my image
-            image: yabork/cit270
-            # This is the command to run once the container starts
-            command: ["npm"]
-            # These are the arguments to pass ot the command when the 
-            args: ["run","start"]
-            # This is the port my container is listening on, ex: 443
-            ports: 
-              - containerPort: 443
-            resources:
-              limits:
-              # This is the max CPU (in cores) my container can use
-                cpu: ".125"
-              # This is the max memory (in Megabytes)
-                memory: "500Mi"
-              requests:
-              # This is the minimun CPU (in cores) my container can use
-                cpu: ".1"
-              # This is the minimun memory (in Megabytes)
-                memory: "250Mi"
-            livenessProbe:
-              httpGet:
-              # This is the url to call to see if my API is running
-                path: /
-              # This is the port to use to see if my API is running
-                port: 443
-              initialDelaySeconds: 3
-              periodSeconds: 3
-            readinessProbe:
-              httpGet:
-              # This is the url to call to see if my API has started
-                path: /
-              # This is the port to use to see if my API has started
-                port: 443
-              initialDelaySeconds: 3
-              periodSeconds: 3
+  template:
+    metadata:
+      labels:
+        app: rodrigo-cit270
+    spec:
+      container:
+        - name: rodrigo-cit270
+        # This is the Dockerhub url to my image
+          image: yabork/cit270
+          # This is the command to run once the container starts
+          command: ["npm"]
+          # These are the arguments to pass ot the command when the 
+          args: ["run","start"]
+          # This is the port my container is listening on, ex: 443
+          ports: 
+            - containerPort: 443
+          resources:
+            limits:
+            # This is the max CPU (in cores) my container can use
+              cpu: ".125"
+            # This is the max memory (in Megabytes)
+              memory: "500Mi"
+            requests:
+            # This is the minimun CPU (in cores) my container can use
+              cpu: ".1"
+            # This is the minimun memory (in Megabytes)
+              memory: "250Mi"
+          livenessProbe:
+            httpGet:
+            # This is the url to call to see if my API is running
+              path: /
+            # This is the port to use to see if my API is running
+              port: 443
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+            # This is the url to call to see if my API has started
+              path: /
+            # This is the port to use to see if my API has started
+              port: 443
+            initialDelaySeconds: 3
+            periodSeconds: 3
