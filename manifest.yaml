@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: rodrigo-cit270
-      # This is hte Dockerhub url to my image
+      # This is the Dockerhub url to my image
         image: yabork/cit270
         # This is the command to run oncew the container starts
         command: ["pm"]
@@ -54,3 +54,17 @@ spec:
             port: 443
           initialDelaySeconds: 3
           periodSeconds: 3
+
+# This is the start of a new document for the Load Balancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rodrigo-cit270-loadbalancer
+spec:
+  selector:
+    app: rodrigo-cit270
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
