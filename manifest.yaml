@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app: rodrigo-cit270
-    templates:
+    template:
       metadata:
         labels:
           app: rodrigo-cit270
