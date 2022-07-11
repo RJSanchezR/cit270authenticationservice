@@ -1,4 +1,4 @@
-#0 2022 Dex Davenport
+#0 2022 Rodrigo Sanchez
 # Version of Kubernetes API we are using
 apiVersion: apps/v1
 # This can be a statefulset, or a deploument, a deploument doesnt need a hard drive that sticks around
@@ -70,5 +70,5 @@ spec:
     app: rodrigo-cit270
   type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 3000
+  - port: 443
+    targetPort: 443
