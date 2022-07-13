@@ -26,7 +26,7 @@ spec:
           args: ["run","start"]
           # This is the port my containter is listening on, ex 443 or
           ports:
-            - containerPort: 443
+            - containerPort: 3000
           resources:
             limits:
             # This is the max CPU (in cores) my container can use
@@ -43,9 +43,9 @@ spec:
             # This is the url to call to see if my API  is running
               path: /
             # This is the port to use to see if my API is running
-              port: 443
+              port: 3000
             # This is the protocol to use to check if my API is running
-              scheme: HTTPS
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 3
           readinessProbe:
@@ -53,9 +53,9 @@ spec:
             # This is the url to call to see fi my API has started
               path: /
             # This is the port to use to see if my API has started
-              port: 443
+              port: 3000
               # This is the protocol to use to check if my API has started
-              scheme: HTTPS
+              scheme: HTTP
             initialDelaySeconds: 3
             periodSeconds: 3
 
@@ -70,5 +70,5 @@ spec:
     app: rodrigo-cit270
   type: LoadBalancer
   ports:
-  - port: 443
-    targetPort: 443
+  - port: 80
+    targetPort: 3000

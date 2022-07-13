@@ -1,6 +1,6 @@
 const express = require('express'); //Importing the library
 const https = require('https');
-const port = 443;
+const port = 3000;
 const app = express(); // Using the library
 const fs = require('fs');
 const md5 = require('md5'); // Importing the library
@@ -9,26 +9,30 @@ const {createClient} = require('redis');
 const redisClient = createClient(
 {
     url: 'redis://default:mypassword1@104.197.6.64:6379',
-    socket:{
-        port:6379,
-        host:"127.0.0.1",
-    }
+    // socket:{
+    //     port:6379,
+    //     host:"127.0.0.1",
+    // }
 }
 ); // This creates a connection to the redis database
 
-redisClient.connect();
+// redisClient.connect();
 
 app.use(bodyParser.json()); // Using the middleware (call it before anything else happens on each request)
 
-https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert'),
-    passphrase: 'P@ssw0rd',
-}, app).listen(port, async ()=>{
-    // await redisClient.connect();
-    console.log("Listening on port: "+port);
-});
+// https.createServer({
+//     key: fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.cert'),
+//     passphrase: 'P@ssw0rd',
+// }, app).listen(port, async ()=>{
+//     // await redisClient.connect();
+//     console.log("Listening on port: "+port);
+// });
 
+app.listen(port, async()=>{
+    await redisClient.connect();
+    console.log('Listening on port: ',port);
+});
 
 const validatePassword = async (request, response)=>{
     //await redisClient.connect(); // Creating a TCP socket with Redis
